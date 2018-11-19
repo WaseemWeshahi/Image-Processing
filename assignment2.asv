@@ -30,8 +30,8 @@ A = [x(1) y(1) 0 0 1 0 -x(1)*z(1) -y(1)*z(1);
     axis = 1:width*height;
     [X,Y] = ind2sub(im2,axis);
    % in = inpolygon(X,Y,z,w);
-    for j=1:height
-        for i=1:width
+    for i=1:height
+        for j=1:width
             in = inpolygon(i,j,z,w);
             if(in==1) 
                vec = [i;
