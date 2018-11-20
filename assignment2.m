@@ -1,8 +1,10 @@
+%maps im1 to im2
+
 im1 = readImage('lena.tif');
 showImage(im1);
 disp('please click on four points in the image, make sure they are in clockwise order');
 [x,y]=ginput(4);
-im2 = readImage('stroller.tif');
+im2 = readImage('racecar.tif');
 showImage(im2);
 disp('please click on four points in the image, make sure they are in clockwise order');
 [z,w]=ginput(4);
