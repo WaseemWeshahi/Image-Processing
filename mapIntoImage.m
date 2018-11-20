@@ -11,14 +11,26 @@ function    [newImage] = mapIntoImage(imageA,imageB)
 showImage(imageA);
 disp('please click on four points in the image, make sure they are in clockwise order and that they form a convex');
 [z,w]=ginput(4);
-%%TODO:
+
 %%MAKE SURE POINTS FORM A CONVEX QUADRILATERAL
 
+if (IsPointWithinLine(z(1),w(1),z(2),w(2),z(3),w(3))||IsPointWithinLine(z(2),w(2),z(3),w(3),z(4),w(4)) ||IsPointWithinLine(z(1),w(1),z(3),w(3),z(4),w(4))||IsPointWithinLine(z(1),w(1),z(2),w(2),z(4),w(4)))
+    disp('invalied points,please enter new points not on the same line: ');
+    [z,w]=ginput(4);
+end
+
+    
 showImage(imageB);
 disp('please click on four points in the image, make sure they are in clockwise order and that they form a convex');
 [x,y]=ginput(4);
-%%TODO:
+
 %%MAKE SURE POINTS FORM A CONVEX QUADRILATERAL
+
+if (IsPointWithinLine(x(1),y(1),x(2),y(2),x(3),y(3))||IsPointWithinLine(x(2),y(2),x(3),y(3),x(4),y(4)) ||IsPointWithinLine(x(1),y(1),x(3),y(3),x(4),y(4))||IsPointWithinLine(x(1),y(1),x(2),y(2),x(4),y(4)))
+    disp('invalied points,please enter new points not on the same line: ');
+    
+    [x,y]=ginput(4);
+end
 
 % Transposing images so that the code works and we code it intuentively
 imageB = imageB';
