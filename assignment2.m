@@ -2,12 +2,12 @@ im1 = readImage('lena.tif');
 showImage(im1);
 disp('please click on four points in the image, make sure they are in clockwise order');
 [x,y]=ginput(4);
-
 im2 = readImage('stroller.tif');
 showImage(im2);
 disp('please click on four points in the image, make sure they are in clockwise order');
 [z,w]=ginput(4);
-
+im1 = im1';
+im2 = im2';
 A = [x(1) y(1) 0 0 1 0 -x(1)*z(1) -y(1)*z(1);
         0 0 x(1) y(1) 0 1 -x(1)*w(1) -y(1)*w(1)
         x(2) y(2) 0 0 1 0 -x(2)*z(2) -y(2)*z(2)
@@ -30,27 +30,27 @@ A = [x(1) y(1) 0 0 1 0 -x(1)*z(1) -y(1)*z(1);
     axis = 1:width*height;
     [X,Y] = ind2sub(im2,axis);
    % in = inpolygon(X,Y,z,w);
-    for j=1:height
-        for i=1:width
+    for i=1:width
+        for j=1:height
             in = inpolygon(i,j,z,w);
             if(in==1) 
                vec = [i;
                        j
                        1];
                 point = final_A*vec;
-                point=point/point(3);
-                point(3,:) = []; %elimenating the Z coordinate
-                sw = floor(point);
-                sw(sw>254) = 254;
-                sw(sw<1) = 1;
-                se = [sw(1)+1;
-                      sw(2)];
-                nw = [sw(1);
-                      sw(2)+1];
-                ne = [sw(1)+1;
-                      sw(2)+1];
-                dX = point(1) - sw(1);
-                dY = point(2) - sw(2);
+                point=point./point(3);
+                point(3) = []; %elimenating the Z coordinate
+                nw = floor(point);
+                nw(nw>254) = 254;
+                nw(nw<0) = 0;
+                se = [nw(1)+1;
+                      nw(2)+1];
+                sw = [nw(1);
+                      nw(2)+1];
+                ne = [nw(1)+1;
+                      nw(2)];
+                dX = point(1) - nw(1);
+                dY = point(2) - nw(2);
                 
                  SW = im1(sw(1),sw(2));
                  SE = im1(se(1),se(2));
@@ -61,12 +61,13 @@ A = [x(1) y(1) 0 0 1 0 -x(1)*z(1) -y(1)*z(1);
                  N = NE*dX + NW*(1-dX);
                  V = N*dY + S*(1-dY);
                  
-                 im2(j,i) = V; %potential bug
+                 im2(i,j) = fix(V); %potential bug
               
             
             end
         end
     end
+    im2 = im2';
     showImage(im2);
 % 
 %    
