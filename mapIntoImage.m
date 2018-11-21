@@ -68,5 +68,9 @@ for i=1:numberOfPix
     V = interpolate(imageB,point);
     newImage(insideIndX(i),insideIndY(i)) = fix(V); %potential bug
     
-    
+end
+
+% retransposing the result
+newImage = newImage';
+showImage(newImage);
 end
