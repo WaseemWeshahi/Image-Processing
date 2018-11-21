@@ -27,9 +27,9 @@ newImage = imageA;
 
 % now we go and find the (inverse) transformation matrix
 transfMat = calcTransfMat(x,y,z,w);
+
 [width,height]=size(imageA);
-%     xvec = 1:width;
-%     yvec = 1:height;
+
 %storing the X's and Y's of the image
 [X,Y] = ind2sub(size(imageA),1:width*height);
 
@@ -38,7 +38,7 @@ transfMat = calcTransfMat(x,y,z,w);
 in = inpolygon(X,Y,z,w);
 [insideIndX,insideIndY] = ind2sub(size(imageA),find(in==1));
 
-% for each pixel inside the quadrilateral, we perform the inverse
+% for each pixel INSIDE (or on the edges of) the quadrilateral, we perform the inverse
 % mapping and Bilinear interpolation
 [~,numberOfPix] = size(insideIndX);
 for i=1:numberOfPix
@@ -57,9 +57,4 @@ for i=1:numberOfPix
     newImage(insideIndX(i),insideIndY(i)) = fix(V); %potential bug
     
     
-end
-
-% retransposing the new image
-newImage = newImage';
-showImage(newImage);
 end
