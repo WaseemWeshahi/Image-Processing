@@ -5,7 +5,8 @@ function isConvex = checkConvex(px,py)
 
 % Output 
 %  isConvex: 1 or 0 for polygon being convex or concave
-
+% this routine was taken from the website:
+% https://matlabgeeks.com/tips-tutorials/computational-geometry/check-convexity-of-polygon/
 numPoints = numel(px);
 v1 = [px(1) - px(end), py(1) - py(end)];
 v2 = [px(2) - px(1), py(2) - py(1)];

@@ -1,4 +1,4 @@
 % The Script
-imA = readImage('racecar.tif');
+imA = readImage('random.tif');
 imB = readImage('lena.tif');
 mapIntoImage(imA,imB);
