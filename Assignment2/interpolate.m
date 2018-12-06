@@ -28,10 +28,16 @@ dX = point(1,:) - nw(1,:);
 dY = point(2,:) - nw(2,:);
 
 % reading the values of the surrounding point
-SW = diag(image(sw(1,:),sw(2,:)))';
-SE = diag(image(se(1,:),se(2,:)))';
-NW = diag(image(nw(1,:),nw(2,:)))';
-NE = diag(image(ne(1,:),ne(2,:)))';
+% SW = diag(image(sw(1,:),sw(2,:)))';
+% SE = diag(image(se(1,:),se(2,:)))';
+% NW = diag(image(nw(1,:),nw(2,:)))';
+% NE = diag(image(ne(1,:),ne(2,:)))';
+
+SW = image(sub2ind(size(image),sw(1,:),sw(2,:)));
+SE = image(sub2ind(size(image),se(1,:),se(2,:)));
+NW = image(sub2ind(size(image),nw(1,:),nw(2,:)));
+NE = image(sub2ind(size(image),ne(1,:),ne(2,:)));
+
 % Lineary interpolating two pairs
 S = SE.*dX + SW.*(1-dX);
 N = NE.*dX + NW.*(1-dX);

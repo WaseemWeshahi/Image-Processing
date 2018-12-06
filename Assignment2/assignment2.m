@@ -1,4 +1,4 @@
 % The Script
-imA = readImage('random.tif');
-imB = readImage('lena.tif');
+imA = readImage('sign.tif');
+imB = readImage('stripes.tif');
 mapIntoImage(imA,imB);
