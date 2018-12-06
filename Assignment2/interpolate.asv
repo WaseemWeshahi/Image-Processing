@@ -14,13 +14,13 @@ function    V = interpolate(image,point)
 
 % finding out the 4 pixels surrounding the point
 nw = floor(point);
-[c,r] = size(image);
-se = [min(nw(1,:)+1,c);
-      min(nw(2,:)+1,r)];
-sw = [max(nw(1,:),1);
-      min(nw(2,:)+1,r)];
-ne = [min(nw(1,:)+1,c);
-      max(nw(2,:),1)];
+[r,c] = size(image);
+se = [nw(1,:)+1;
+    nw(2,:)+1];
+sw = [nw(1,:);
+    nw(2,:)+1];
+ne = [nw(1,:)+1;
+    nw(2,:)];
 
 % calculating ?x and ?y
 dX = point(1,:) - nw(1,:);
