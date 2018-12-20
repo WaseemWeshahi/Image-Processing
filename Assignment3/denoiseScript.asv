@@ -1,5 +1,9 @@
 % The Script
+<<<<<<< HEAD
 imA = readImage('Alan_Turing.tif');
+=======
+imA = readImage('Nietzsche.tif');
+>>>>>>> 2c6b696f2118f9e9f8258241f6365b76d7028d25
 showImage(imA);
 [width,height]=size(imA);
 %imB=addSPnoise(imA,0.1);
@@ -19,6 +23,7 @@ calcPSNR(imA,imA);
 ans = psnr(imA,imA);
 disp(ans);
 showImage(clean);
+=======
 N = 50;
 imArray = zeros(width,height,N);
 for i=1:N
