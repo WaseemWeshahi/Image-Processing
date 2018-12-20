@@ -6,4 +6,4 @@ mask = zeros(maskRadius+3);
 hg = exp(- (h1.^2+h2.^2) / (2*maskSTD^2));
 mask = hg ./ sum(hg(:));
 
-cleanIm = conv2(im,mask);
+cleanIm = conv2(im,mask,'same');
