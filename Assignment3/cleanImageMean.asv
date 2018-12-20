@@ -1,5 +1,0 @@
-function cleanIm = cleanImageMean (im, maskRadius, maskSTD)
-mask = zeros(maskRadius+2);
-mask = fspecial('gaussian', size(mask),maskSTD);
-for i =1:maskRadius
-cleanIm = conv2(im,mask);
