@@ -66,26 +66,30 @@ xlabel('maskRadius');
 ylabel('PSNR');
 title('PSNR  as a function of maskRadius');
 disp('in the following figure, you can see the PSNR values between original and median-denoised image as a function of the size of median neighborhood – maskRadius');
+disp('Press any key to continue...');
 pause();
 close all
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 disp('%%%%%%%%%%%%%%%%%%%%% E %%%%%%%%%%%%%%%%%%%%%');
 imA = readImage('karlMarx.tif');
 showImage(imA);
-GI = addGaussianNoise(imA,5);
+GI = addGaussianNoise(imA,10);
 showImage(GI);
+disp('Figure 1, Original image');
+disp('Figure 2, Gaussian Noised Image');
 figure
-x = 1:10;
+x = 0.5:0.1:1.5;
 y=x;
 for i=1:length(x)
-    y(i) = calcPSNR(cleanImageMean(GI,[x(i),x(i)],0.8),imA);
+    y(i) = calcPSNR(cleanImageMean(GI,[5 5],x(i)),imA);
 end
 plot(x,y);
-xlabel('maskRadius');
+xlabel('mask STD');
 ylabel('PSNR');
-title('PSNR  as a function of maskRadius');
+title('PSNR  as a function of maskSTD');
 disp('in the following figure, you can see the PSNR values between original and main-denoised image as a function of the size of median neighborhood – maskRadius');
-disp('As we can see, the PSNR increases, since the mean square differnce between the image and its average is minimal therefor the PSNR increases alongside the maskRadius');
+disp('As we can see, the PSNR increases when the standard deviation increases');
+disp('Press any key to continue...');
 pause();
 close all
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -94,7 +98,7 @@ imA = readImage('Alan_Turing.tif');
 showImage(imA);
 imArray = zeros([size(imA),10]);
 for i=1:size(imArray,3)
-    imArray(:,:,i) = addGaussianNoise(imA,4);
+    imArray(:,:,i) = addGaussianNoise(imA,8);
 end
 meanFilt = cleanImageMean_multi(imArray);
 medianFilt = cleanImageMedian_multi(imArray);
@@ -103,8 +107,21 @@ showImage(meanFilt);
 title('image cleaned with mean');
 figure(2);
 showImage(medianFilt);
+disp('In figure 1 we see the Original image');
+disp('Figure 2 has is the mean result of the image array');
+disp('Figure 2 has is the median result of the image array');
 title('image cleaned with median');
-
+fprintf("PSNR between mean and original:   %.3f\n",calcPSNR(meanFilt,imA));
+fprintf("PSNR between median and original: %.3f\n",calcPSNR(medianFilt,imA)); 
+disp('We can see the PSNR between the MEAN image and the original is the highest therfore:');
+disp('cleaning by MEAN is recommended for Gaussian Noise');
+disp('Press any key to continue...');
+pause();
+close all
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+disp('%%%%%%%%%%%%%%%%%%%%% G %%%%%%%%%%%%%%%%%%%%%');
+imA = readImage('Alan_Turing.tif');
+showImage(imA);
 
 
 
