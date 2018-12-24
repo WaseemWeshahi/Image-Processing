@@ -1,33 +1,17 @@
 % The Script
-imA = readImage('Alan_Turing.tif');
+disp('%%%%%%%%%%%%%%%%%%%%% A %%%%%%%%%%%%%%%%%%%%%');
+imA = readImage('karlMarx.tif');
 showImage(imA);
-[width,height]=size(imA);
-%imB=addSPnoise(imA,0.1);
-%showImage(imB);
-%imB=cleanImageMedian(imB,[5 5]);
-%showImage(imB);
-%imB=addMotionBlur(imA,10);
-%showImage(imB);
-<<<<<<< HEAD
-%imB = addGaussianNoise(imA,50);
-%showImage(imB);
-
-%imB = cleanImageMean(imA,[2 2],4);
-%showImage(imB);
-clean = sharpen(imA,[2 2],1,-1);
-calcPSNR(imA,imA);
-ans = psnr(imA,imA);
-disp(ans);
-showImage(clean);
-N = 50;
-imArray = zeros(width,height,N);
-for i=1:N
-    imArray(:,:,i) = addMotionBlur(imA,50);
-    
-end
-
-imB = cleanImageMean_multi(imArray);
-pause(3);
-showImage(imB);
-
-
+SP = addSPnoise(imA,0.05);
+showImage(SP);
+showImage(cleanImageMean(SP,[4,4],2));
+showImage(cleanImageMedian(SP,[4,4]));
+disp('Figure 1: The original Image.');
+disp('Figure 2: the image under salt and pepper effect (P=0.1))');
+disp('Figure 3: the Image "cleaned" by averaging with a maskRadius of 5');
+disp('Figure 4: the Image "cleaned" by taking the median, maskRadius of 5');
+disp('Press any key to continue...');
+pause();
+close all
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+disp('%%%%%%%%%%%%%%%%%%%%% B %%%%%%%%%%%%%%%%%%%%%');
