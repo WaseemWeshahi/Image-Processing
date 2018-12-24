@@ -19,5 +19,4 @@ MSE = MSE / NM;%we divide by the diminsions of the images
 secondArg = 1/MSE;%in the orginal equation, we divide R^2 by MSE, but since R here is 1,we divide by 1
 
 PSNRval = 10*log10(secondArg);
-disp(PSNRval);
 
