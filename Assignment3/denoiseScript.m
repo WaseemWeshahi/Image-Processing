@@ -51,7 +51,7 @@ disp('While the gaussian noise is best cleaned by averaging kernels (in this exa
 disp('Those answers are backed up by both visual arguments (they look better these ways) and in numerical objective arguments (the PSNR is greater in each case)');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 disp('%%%%%%%%%%%%%%%%%%%%% D %%%%%%%%%%%%%%%%%%%%%');
-imA = readImage('karlMarx.tif');
+imA = readImage('dali.tif');
 SP = addSPnoise(imA,0.2);
 figure
 x = 1:7;
@@ -64,14 +64,15 @@ showImage(imA);
 showImage(SP);
 disp('figure 1 has the original image');
 disp('figure 2 shows the S&P noised image');
+figure;
 plot(x,y);
 xlabel('maskRadius');
 ylabel('PSNR');
 title('PSNR  as a function of maskRadius');
 disp('in the following graph, you can see the PSNR values between original and median-denoised image as a function of the size of median neighborhood – maskRadius');
 disp('as we can see, the broader the mask, the less resemblence the denoised image has with the original');
-disp('and that is becuase when we broader the mask, the salt and pepper points get calculated in the' ...
-    +' calculations of a more and more pixel, increasing the error'); 
+disp('and that is becuase when we broader the mask, the salt and pepper points get calculated in the');
+disp('calculations of a more and more pixel, increasing the error'); 
 disp('Press any key to continue...');
 pause();
 close all
@@ -95,7 +96,9 @@ ylabel('PSNR');
 title('PSNR  as a function of maskSTD');
 disp('in the following figure, you can see the PSNR values between original and main-denoised image as a function of the size of median neighborhood – maskRadius');
 disp('As we can see, the PSNR increases when the standard deviation increases, but in a "logarithmic" fashion');
-disp('the reason being that the higher the STD the more errors cancel each other out');
+disp('the reason being that the mean of the gaussian noise is 0 therfore');
+disp('the higher the STD in the cleaning filter the more weight we give to the neighbouring pixels therfore the mean of the error gets closer to 0 and they cancel out each other');
+disp('and we end up with a color that is close to the correct one');
 disp('Press any key to continue...');
 pause();
 close all
@@ -169,7 +172,7 @@ ylabel('PSNR value');
 xlabel('number of frames used');
 disp('As we can see from the graph, the more frames we take into consideration, the higher the PSNT Therfore');
 disp('the closer we are to the original Image');
-disp('and thats becuase the error is disturbuted randomly across all frames therefore the error pixels get brought to a more correct color');
+disp('and thats becuase the error is disturbuted randomly across all frames therefore the error pixels get brought to closer to the correct color');
 disp('Press any key to continue...');
 pause();
 close all
@@ -191,7 +194,7 @@ ylabel('PSNR value');
 xlabel('number of frames used');
 disp('As we can see from the graph, the more frames we take into consideration, the higher the PSNT Therfore');
 disp('the closer we are to the original Image');
-disp('and thats becuase the error is disturbuted randomly across all frames therefore the error pixels get brought to a more correct color');
+disp('and thats becuase the error is disturbuted randomly across all frames therefore the error pixels get brought closer to the correct color');
 disp('Press any key to continue...');
 pause();
 close all
@@ -200,7 +203,13 @@ disp('%%%%%%%%%%%%%%%%%%%%% J %%%%%%%%%%%%%%%%%%%%%');
 disp('"sharpen" sharpens the edges of the Image.');
 disp('Therfore, if we sharpen a S&P noised image, we sharpen the "salts and peppers" and make them more obvious');
 disp('and we end up with a result like the one shown in this graph');
-showImage(sharpen(SP,[5 5],8,12));
+SP = readImage('Alan_turing.tif');
+SP = addSPnoise(SP,0.2);
+showImage(SP);
+showImage(sharpen(SP,[5 5],8,4));
+disp('Press any key to finish...');
+pause();
+close all
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 disp('%%%%%%%%%%%%%%%%%%%%% FINITO %%%%%%%%%%%%%%%%%%%%%');
 disp('That is it for the checking script,');
