@@ -1,4 +1,7 @@
-% The Script
+% The Checking Script for the 3rd Assignment
+% Written By:
+% Waseem Weshahi    206943391
+% Bayan Farhan      208300145
 disp('%%%%%%%%%%%%%%%%%%%%% A %%%%%%%%%%%%%%%%%%%%%');
 imA = readImage('dali.tif');
 showImage(imA);
