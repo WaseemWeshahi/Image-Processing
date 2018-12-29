@@ -37,37 +37,39 @@ showImage((F+imB));
 imA = readImage('oldWoman');
 showImage(imA);
  
-%f=fft2(imA);
-%D=log(1+abs(f));
-%D =fftshift(D);
-%imagesc(D);
-%[x,y]=ginput(4)
+F=fft2(imA);
+D=log(1+abs(F));
+D =fftshift(D);
+imagesc(D);
+mask = circle(size(imA),34);
+% [x,y]=ginput(4)
 
 % using the above 4 lines of code, we have managed to discover the exact
 % indecies in f we need to put to zero
 
-for i=1:width
-    for j=1:height
-        if(j==32 ||j==31 || j==30 )&&(  i==21)
-            f(i,j)=0;
-        end 
-        if(j==32 ||j==31 || j==30 )&&(  i== width-10 || i==width-9 ||  i==width-8)
-            f(i,j)=0;
-        end 
-        if(j==height-32 || j==height-30 || j== height-29 || j==height-31 )&&(  i== 10 || i==9 ||  i==8)
-            f(i,j)=0;
-        end
-        if(j==height-32 || j==height-30 || j== height-29 || j==height-31 )&&(  i==width-19 || i==width-18 || i==width-20)
-            f(i,j)=0;
-        end
-    end
-end
-D=log(1+abs(f));
-D =fftshift(D);
-imagesc(D);
-F=abs(ifft2(f));
+% for i=1:width
+%     for j=1:height
+%         if(j==32 ||j==31 || j==30 )&&(  i==21)
+%             f(i,j)=0;
+%         end 
+%         if(j==32 ||j==31 || j==30 )&&(  i== width-10 || i==width-9 ||  i==width-8)
+%             f(i,j)=0;
+%         end 
+%         if(j==height-32 || j==height-30 || j== height-29 || j==height-31 )&&(  i== 10 || i==9 ||  i==8)
+%             f(i,j)=0;
+%         end
+%         if(j==height-32 || j==height-30 || j== height-29 || j==height-31 )&&(  i==width-19 || i==width-18 || i==width-20)
+%             f(i,j)=0;
+%         end
+%     end
+% end
+showImage(mask);
+mask = ifftshift(mask);
+
+F = F.* (mask/255);
+f=abs(ifft2(F));
 putImage(imA);
-putImage(F);
+putImage(f);
 %%%%%%%%%%%%%%%%%%%%
 %trying to solve cups
 %{
