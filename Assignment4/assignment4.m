@@ -6,34 +6,70 @@ showImage(imA);
 imB = maxIm(minIm(minIm(maxIm(imA,[01,1]),[1,1]),[1,1]),[1,1]);
 showImage(imB);
 
-%f=fft2(imB);
-%D=log(1+abs(f));
-%D =fftshift(D);
-%imagesc(D);
-
-
-
-%}
-%%%%%%%%%%%%%%%%%%%%%
-%{
-imA = readImage('oldWoman');
-showImage(imA);
- 
-f=fft2(imA);
+f=fft2(imB);
 D=log(1+abs(f));
 D =fftshift(D);
 imagesc(D);
+[x,y]=ginput(1);
 
-dc = f(1,1);
-h = find(abs(f)>=350317);
-f(h)=0;
-f(1,1)=dc;
+%D0 = abs(f(round(x),round(y)));
+H=zeros(width,height);
+%h = find(abs(f)>D0);
+%H(h)=1;
+D0 = sqrt((x-1)*(x-1)+(y-1)*(y-1));
+for i=1:width
+    for j=1:height
+        if sqrt((i-1)*(i-1) +(j-1)*(j-1))>D0
+            H(i,j)=1;
+        end
+    end
+end
+
+
+F=abs(ifft2(f.*H));
+showImage(imB);
+showImage((F+imB));
+%}
+
+
+%%%%%%%%%%%%%%%%%%%%%
+
+imA = readImage('oldWoman');
+showImage(imA);
+ 
+%f=fft2(imA);
+%D=log(1+abs(f));
+%D =fftshift(D);
+%imagesc(D);
+%[x,y]=ginput(4)
+
+% using the above 4 lines of code, we have managed to discover the exact
+% indecies in f we need to put to zero
+
+for i=1:width
+    for j=1:height
+        if(j==32 ||j==31 || j==30 )&&(  i==21)
+            f(i,j)=0;
+        end 
+        if(j==32 ||j==31 || j==30 )&&(  i== width-10 || i==width-9 ||  i==width-8)
+            f(i,j)=0;
+        end 
+        if(j==height-32 || j==height-30 || j== height-29 || j==height-31 )&&(  i== 10 || i==9 ||  i==8)
+            f(i,j)=0;
+        end
+        if(j==height-32 || j==height-30 || j== height-29 || j==height-31 )&&(  i==width-19 || i==width-18 || i==width-20)
+            f(i,j)=0;
+        end
+    end
+end
+D=log(1+abs(f));
+D =fftshift(D);
+imagesc(D);
 F=abs(ifft2(f));
 putImage(imA);
 putImage(F);
-
-%}
 %%%%%%%%%%%%%%%%%%%%
+%trying to solve cups
 %{
 imA = readImage('lena.tif');
 showImage(imA);
@@ -68,34 +104,6 @@ showImage(bim);
 bim = abs(ifft2(fft2(bim)./M));
 
 showImage(bim);
-%}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%trying to implement high pass
-%{
-imA = readImage('lena.tif');
-[width,height]=size(imA);
-
-
-imA = cleanImageMedian(imA,[3,3]);
-
-
-
-f=fft2(imA);
-D=log(1+abs(f));
-D =fftshift(D);
-imagesc(D);
-[x,y]=ginput(1);
-
-D0 = abs(f(round(x),round(y)));
-H =f;
-h = find(abs(f)>D0);
-H(h)=1;
-
-h = find(abs(f)<=D0);
-H(h)=0;
-F=abs(ifft2(f.*H));
-showImage((F+imA));
 %}
 
 
