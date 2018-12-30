@@ -1,5 +1,4 @@
-
-
+%{
 imA = readImage('blocks.tif');
 
 showImage(imA);
@@ -22,17 +21,17 @@ showImage(f+imB);
 
 
 
-
 %%%%%%%%%%%%%%%%%%%%%
 %{
 imA = readImage('oldWoman');
 showImage(imA);
  
 F=fft2(imA);
-%D=log(1+abs(F));
-%D =fftshift(D);
-%imagesc(D);
-% [x,y]=ginput(4)
+D=log(1+abs(F));
+D =fftshift(D);
+imagesc(D);
+mask = circle(size(imA),30);
+
 
 % using the above 4 lines of code, we have managed to discover the exact
 % indecies in f we need to put to zero
@@ -58,12 +57,27 @@ f=abs(ifft2(F));
 showImage(f);
 %}
 %%%%%%%%%%%%%%%%%%%%
-
+% trying to solve cups
+% imA = readImage('lena.tif');
+% showImage(imA);
+% F = fft2(imA);
+% D = log(1+abs(F));
+% D = fftshift(D);
+% imagesc(D);
+% H = circle(size(imA),30);
+% H = ~H;
+% showImage(H*255);
+% H = ifftshift(H);
+% f = ifft2(F.*H,'symmetric');
+% putImage(f+128);
+% 
+>>>>>>> 78d30e9fe1eb384bdb06a1fad1cd49c00c8f664f
 
 
 %%%%%%%%%%%%%%%%%%%%
-%{
+
 %trying to solve cups
+%{
 imB = readImage('cups.tif');
 showImage(imB);showImage(imB);
 
@@ -89,45 +103,27 @@ showImage(bim);
 %}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+<<<<<<< HEAD
 %{
 imB = readImage('house.tif');
+=======
+>>>>>>> 78d30e9fe1eb384bdb06a1fad1cd49c00c8f664f
 
+imB = readImage('house.tif');
+r = 10;
 showImage(imB);showImage(imB);
+showFFT(imB);
 F=fft2(imB);
-D=log(1+abs(F));
-D =fftshift(D);
-imagesc(D);
+[n,m] = size(imB);
+mask =ones(n,m);
+% mask(:,1:r)=1;
+% mask(:,m-r:m)=0;
+mask(r:n-r,r:m-r)=0;
+showImage(fftshift(mask)*255);
+f = ifft2(F.*mask,'symmetric');
+showImage(f);
 
-[width,height]=size(imB);
-H=zeros(width,height);
-H(width,20)=0.5;
-H(8,1)=0.5;
-H=fft2(H);
-h = find(abs(H)<0.001);
-H(h)=1;
-
-
-showImage(abs(ifft2(F./H)));
 %[x,y]=ginput(2);
 
 
-showImage(imB);showImage(imB);
-F=fft2(imB);
-D=log(1+abs(F));
-D =fftshift(D);
-imagesc(D);
 
-[width,height]=size(imB);
-H=zeros(width,height);
-H(width,20)=0.5;
-H(8,1)=0.5;
-H=fft2(H);
-h = find(abs(H)<0.001);
-H(h)=1;
-
-
-showImage(abs(ifft2(F./H)));
-%[x,y]=ginput(2);
-
-
-%}
