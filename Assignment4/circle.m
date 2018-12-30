@@ -5,6 +5,6 @@ function mask = circle(size,r)
  mask = dist;
  mask((dist>r^2)) = 0;
  mask((dist<=r^2))=255;
- mask = cleanImageMean(mask,[4 4],10);
+%  mask = cleanImageMean(mask,[4 4],10);
 end
  
