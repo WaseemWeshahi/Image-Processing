@@ -97,7 +97,7 @@ showImage(mask);
 mask = ifftshift(mask);
 f=ifft2(F.* (mask/255),'symmetric');
 putImage(imA);
-<<<<<<< HEAD
+
 putImage(f);
 %}
 %%%%%%%%%%%%%%%%%%%%
@@ -130,22 +130,12 @@ h = find(abs(M)<0.01);
 M(h)=1;
 bim = abs(ifft2(fft2(bim)./M));
 showImage(bim);
-%}
-%{
-
 putImage(F);
 %}
 
-%%%%%%%%%%%%%%%%%%%%
-%{
-=======
-<<<<<<< HEAD
-putImage(F);
-%}
 
 %%%%%%%%%%%%%%%%%%%%
 %{
->>>>>>> 0b179c3b1006a39641db9cefbad3f5a5f2c104ae
 %trying to solve cups
 imB = readImage('cups.tif');
 showImage(imB);showImage(imB);
@@ -174,6 +164,26 @@ showImage(bim);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %{
 imB = readImage('house.tif');
+<<<<<<< HEAD
+
+showImage(imB);showImage(imB);
+F=fft2(imB);
+D=log(1+abs(F));
+D =fftshift(D);
+imagesc(D);
+
+[width,height]=size(imB);
+H=zeros(width,height);
+H(width,20)=0.5;
+H(8,1)=0.5;
+H=fft2(H);
+h = find(abs(H)<0.001);
+H(h)=1;
+
+
+showImage(abs(ifft2(F./H)));
+%[x,y]=ginput(2);
+
 
 showImage(imB);showImage(imB);
 F=fft2(imB);
