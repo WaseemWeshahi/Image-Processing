@@ -3,8 +3,8 @@ function mask = circle(size,r)
  [x,y] = meshgrid([1:size(2)],[1:size(1)]);
  dist = (x-size(2)/2).^2+(y-size(1)/2).^2;
  mask = dist;
- mask((dist>r^2)) = 0;
- mask((dist<=r^2))=255;
-%  mask = cleanImageMean(mask,[4 4],10);
+ mask((dist>r^2)) = 255;
+ mask((dist<=r^2))=0;
+  mask = cleanImageMean(mask,[7 7],8);
 end
  
