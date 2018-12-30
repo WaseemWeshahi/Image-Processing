@@ -1,65 +1,26 @@
 %{
 imA = readImage('blocks.tif');
+
 showImage(imA);
 
 imB = maxIm(minIm(minIm(maxIm(imA,[01,1]),[1,1]),[1,1]),[1,1]);
+%showImage(imB);
+
+F=fft2(imB);
+%D=log(1+abs(f));
+%D =fftshift(D);
+%imagesc(D);
+H=circle(size(imB),20);
+%H=~H;
+%showImage(H);
+H = ifftshift(H);
+f = ifft2(F.*(H/255),'symmetric');
+%putImage(f+128);
 showImage(imB);
+showImage(f+imB);
 
-f=fft2(imB);
-D=log(1+abs(f));
-D =fftshift(D);
-imagesc(D);
-[x,y]=ginput(1);
-
-%D0 = abs(f(round(x),round(y)));
-H=zeros(width,height);
-%h = find(abs(f)>D0);
-%H(h)=1;
-D0 = sqrt((x-1)*(x-1)+(y-1)*(y-1));
-for i=1:width
-    for j=1:height
-        if sqrt((i-1)*(i-1) +(j-1)*(j-1))>D0
-            H(i,j)=1;
-        end
-    end
-end
-showImage((imA));
-D=log(1+abs(H));
-D =fftshift(D);
-imagesc(D);
-F=abs(ifft2(f.*H));
-showImage(F);
-showImage((F+imB));
 %}
-%{
-imA = readImage('lena.tif');
-showImage(imA);
-f=fft2(imA);
-D=log(1+abs(f));
-D =fftshift(D);
-imagesc(D);
-[x,y]=ginput(1);
 
-%D0 = abs(f(round(x),round(y)));
-H=zeros(width,height);
-%h = find(abs(f)>D0);
-%H(h)=1;
-D0 = sqrt((x-1)*(x-1)+(y-1)*(y-1));
-for i=1:width
-    for j=1:height
-        if sqrt((i-1)*(i-1) +(j-1)*(j-1))>D0
-            H(i,j)=1;
-        end
-    end
-end
-showImage((imA));
-D=log(1+abs(H));
-D =fftshift(D);
-imagesc(D);
-F=abs(ifft2(f.*H));
-showImage(F);
-showImage((F+imA));
-%}
 %%%%%%%%%%%%%%%%%%%%%
 %{
 imA = readImage('oldWoman');
@@ -71,31 +32,29 @@ D =fftshift(D);
 imagesc(D);
 mask = circle(size(imA),30);
 
-%  [x,y]=ginput(4)
 
 % using the above 4 lines of code, we have managed to discover the exact
 % indecies in f we need to put to zero
 
-for i=1:width
-    for j=1:height
-        if(j==32 ||j==31 || j==30 )&&(  i==21)
-            F(i,j)=0;
-        end 
-        if(j==32 ||j==31 || j==30 )&&(  i== width-10 || i==width-9 ||  i==width-8)
-            F(i,j)=0;
-        end 
-        if(j==height-32 || j==height-30 || j== height-29 || j==height-31 )&&(  i== 10 || i==9 ||  i==8)
-            F(i,j)=0;
-        end
-        if(j==height-32 || j==height-30 || j== height-29 || j==height-31 )&&(  i==width-19 || i==width-18 || i==width-20)
-            F(i,j)=0;
-        end
-    end
-end
-f=ifft2(F,'symmetric');
-putImage(imA);
+ for i=1:width
+     for j=1:height
+         if(j==32 ||j==31 || j==30 )&&(  i==21)
+             F(i,j)=0;
+         end 
+         if(j==32 ||j==31 || j==30 )&&(  i== width-10 || i==width-9 ||  i==width-8)
+             F(i,j)=0;
+         end 
+         if(j==height-32 || j==height-30 || j== height-29 || j==height-31 )&&(  i== 10 || i==9 ||  i==8)
+             F(i,j)=0;
+         end
+         if(j==height-32 || j==height-30 || j== height-29 || j==height-31 )&&(  i==width-19 || i==width-18 || i==width-20)
+             F(i,j)=0;
+         end
+     end
+ end
 
-putImage(f);
+f=abs(ifft2(F));
+showImage(f);
 %}
 %%%%%%%%%%%%%%%%%%%%
 % trying to solve cups
@@ -144,6 +103,8 @@ showImage(bim);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+%{
 imB = readImage('house.tif');
 t = 5;
 showImage(imB);showImage(imB);
@@ -174,4 +135,22 @@ showImage(f);
 %[x,y]=ginput(2);
 
 
+%}
+%%%%%%%%%%%%%%%%%%%%%%%
+imA = readImage('stroller.tif');
+showImage(imA);
 
+F=fft2(imA);
+H=circle(size(imA),20);
+H = ifftshift(H);
+f = ifft2(F.*(H/255),'symmetric');
+%showImage(f+128);
+showImage(imA +f);
+
+imA = imA+f;
+F=fft2(imA);
+H=circle(size(imA),7);
+H = ifftshift(H);
+f = ifft2(F.*(H/255),'symmetric');
+%showImage(f+128);
+showImage(imA +f);
