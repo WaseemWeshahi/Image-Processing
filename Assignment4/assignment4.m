@@ -1,5 +1,4 @@
-
-
+%{
 imA = readImage('blocks.tif');
 showImage(imA);
 
@@ -31,8 +30,7 @@ imagesc(D);
 F=abs(ifft2(f.*H));
 showImage(F);
 showImage((F+imB));
-
-
+%}
 %{
 imA = readImage('lena.tif');
 showImage(imA);
@@ -63,7 +61,7 @@ showImage(F);
 showImage((F+imA));
 %}
 %%%%%%%%%%%%%%%%%%%%%
-%{
+
 imA = readImage('oldWoman');
 showImage(imA);
  
@@ -71,49 +69,48 @@ F=fft2(imA);
 D=log(1+abs(F));
 D =fftshift(D);
 imagesc(D);
-mask = circle(size(imA),34);
-% [x,y]=ginput(4)
+mask = circle(size(imA),30);
+
+%  [x,y]=ginput(4)
 
 % using the above 4 lines of code, we have managed to discover the exact
 % indecies in f we need to put to zero
 
-% for i=1:width
-%     for j=1:height
-%         if(j==32 ||j==31 || j==30 )&&(  i==21)
-%             f(i,j)=0;
-%         end 
-%         if(j==32 ||j==31 || j==30 )&&(  i== width-10 || i==width-9 ||  i==width-8)
-%             f(i,j)=0;
-%         end 
-%         if(j==height-32 || j==height-30 || j== height-29 || j==height-31 )&&(  i== 10 || i==9 ||  i==8)
-%             f(i,j)=0;
-%         end
-%         if(j==height-32 || j==height-30 || j== height-29 || j==height-31 )&&(  i==width-19 || i==width-18 || i==width-20)
-%             f(i,j)=0;
-%         end
-%     end
-% end
-showImage(mask);
-mask = ifftshift(mask);
-f=ifft2(F.* (mask/255),'symmetric');
+for i=1:width
+    for j=1:height
+        if(j==32 ||j==31 || j==30 )&&(  i==21)
+            F(i,j)=0;
+        end 
+        if(j==32 ||j==31 || j==30 )&&(  i== width-10 || i==width-9 ||  i==width-8)
+            F(i,j)=0;
+        end 
+        if(j==height-32 || j==height-30 || j== height-29 || j==height-31 )&&(  i== 10 || i==9 ||  i==8)
+            F(i,j)=0;
+        end
+        if(j==height-32 || j==height-30 || j== height-29 || j==height-31 )&&(  i==width-19 || i==width-18 || i==width-20)
+            F(i,j)=0;
+        end
+    end
+end
+f=ifft2(F,'symmetric');
 putImage(imA);
 
 putImage(f);
-%}
+
 %%%%%%%%%%%%%%%%%%%%
 %trying to solve cups
-imA = readImage('lena.tif');
-showImage(imA);
-F = fft2(imA);
-D = log(1+abs(F));
-D = fftshift(D);
-imagesc(D);
-H = circle(size(imA),30);
-H = ~H;
-showImage(H*255);
-H = ifftshift(H);
-f = ifft2(F.*H,'symmetric');
-putImage(f+128);
+% imA = readImage('lena.tif');
+% showImage(imA);
+% F = fft2(imA);
+% D = log(1+abs(F));
+% D = fftshift(D);
+% imagesc(D);
+% H = circle(size(imA),30);
+% H = ~H;
+% showImage(H*255);
+% H = ifftshift(H);
+% f = ifft2(F.*H,'symmetric');
+% putImage(f+128);
 
 
 %{
