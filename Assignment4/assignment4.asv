@@ -148,11 +148,17 @@ imB = readImage('house.tif');
 r = 10;
 showImage(imB);showImage(imB);
 showFFT(imB);
-F=fft2(imB);
+G=fft2(imB);
 [n,m] = size(imB);
-mask =ones(n,m);
-mask(r:n-r,r:m-r)=0;
-f = ifft2(F.
+% mask =ones(n,m);
+% mask(:,1:r)=1;
+% mask(:,m-r:m)=0;
+% mask(r:n-r,r:m-r)=0;
+% showImage(fftshift(mask)*255);
+h = zeros(n,m);
+h
+f = ifft2(F.*mask,'symmetric');
+showImage(f);
 
 %[x,y]=ginput(2);
 
