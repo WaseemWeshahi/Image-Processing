@@ -104,7 +104,7 @@ showImage(bim);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
+%{
 imB = readImage('house.tif');
 r = 10;
 showImage(imB);showImage(imB);
@@ -122,5 +122,5 @@ showImage(f);
 %[x,y]=ginput(2);
 
 
-
-
+%}
+%%%%%%%%%%%%%%%%%%%%%%%

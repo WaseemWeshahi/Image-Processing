@@ -19,7 +19,7 @@ f = ifft2(F.*(H/255),'symmetric');
 showImage(imB);
 showImage(f+imB);
 
-
+%}
 
 %%%%%%%%%%%%%%%%%%%%%
 %{
@@ -71,7 +71,6 @@ showImage(f);
 % f = ifft2(F.*H,'symmetric');
 % putImage(f+128);
 % 
->>>>>>> 78d30e9fe1eb384bdb06a1fad1cd49c00c8f664f
 
 
 %%%%%%%%%%%%%%%%%%%%
@@ -103,12 +102,9 @@ showImage(bim);
 %}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-<<<<<<< HEAD
-%{
-imB = readImage('house.tif');
-=======
->>>>>>> 78d30e9fe1eb384bdb06a1fad1cd49c00c8f664f
 
+
+%{
 imB = readImage('house.tif');
 r = 10;
 showImage(imB);showImage(imB);
@@ -126,4 +122,19 @@ showImage(f);
 %[x,y]=ginput(2);
 
 
+%}
+%%%%%%%%%%%%%%%%%%%%%%%
+imA = readImage('stroller.tif');
+showImage(imA);
 
+F=fft2(imA);
+%D=log(1+abs(f));
+%D =fftshift(D);
+%imagesc(D);
+H=circle(size(imA),20);
+%H=~H;
+%showImage(H);
+H = ifftshift(H);
+f = ifft2(F.*(H/255),'symmetric');
+%putImage(f+128);
+showImage(imA);
