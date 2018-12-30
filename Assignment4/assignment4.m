@@ -124,3 +124,20 @@ showImage(f);
 
 %}
 %%%%%%%%%%%%%%%%%%%%%%%
+imA = readImage('stroller.tif');
+showImage(imA);
+
+F=fft2(imA);
+H=circle(size(imA),20);
+H = ifftshift(H);
+f = ifft2(F.*(H/255),'symmetric');
+%showImage(f+128);
+showImage(imA +f);
+
+imA = imA+f;
+F=fft2(imA);
+H=circle(size(imA),7);
+H = ifftshift(H);
+f = ifft2(F.*(H/255),'symmetric');
+%showImage(f+128);
+showImage(imA +f);
