@@ -61,7 +61,7 @@ showImage(F);
 showImage((F+imA));
 %}
 %%%%%%%%%%%%%%%%%%%%%
-
+%{
 imA = readImage('oldWoman');
 showImage(imA);
  
@@ -96,9 +96,9 @@ f=ifft2(F,'symmetric');
 putImage(imA);
 
 putImage(f);
-
+%}
 %%%%%%%%%%%%%%%%%%%%
-%trying to solve cups
+% trying to solve cups
 % imA = readImage('lena.tif');
 % showImage(imA);
 % F = fft2(imA);
@@ -111,29 +111,13 @@ putImage(f);
 % H = ifftshift(H);
 % f = ifft2(F.*H,'symmetric');
 % putImage(f+128);
-
-
-%{
-imA = readImage('lena.tif');
-showImage(imA);
-[width,height]=size(imA);
-M = zeros(width,height);
-M(1,1)=0.5;
-M(8,13)=0.5;
-M = fft2(M);
-bim=abs(ifft2(fft2(imA).*M));
-showImage(bim);
-h = find(abs(M)<0.01);
-M(h)=1;
-bim = abs(ifft2(fft2(bim)./M));
-showImage(bim);
-putImage(F);
-%}
+% 
 
 
 %%%%%%%%%%%%%%%%%%%%
-%{
+
 %trying to solve cups
+%{
 imB = readImage('cups.tif');
 showImage(imB);showImage(imB);
 
@@ -159,46 +143,22 @@ showImage(bim);
 %}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%{
+
 imB = readImage('house.tif');
-<<<<<<< HEAD
-
+r = 10;
 showImage(imB);showImage(imB);
+showFFT(imB);
 F=fft2(imB);
-D=log(1+abs(F));
-D =fftshift(D);
-imagesc(D);
+[n,m] = size(imB);
+mask =ones(n,m);
+% mask(:,1:r)=1;
+% mask(:,m-r:m)=0;
+mask(r:n-r,r:m-r)=0;
+showImage(fftshift(mask)*255);
+f = ifft2(F.*mask,'symmetric');
+showImage(f);
 
-[width,height]=size(imB);
-H=zeros(width,height);
-H(width,20)=0.5;
-H(8,1)=0.5;
-H=fft2(H);
-h = find(abs(H)<0.001);
-H(h)=1;
-
-
-showImage(abs(ifft2(F./H)));
 %[x,y]=ginput(2);
 
 
-showImage(imB);showImage(imB);
-F=fft2(imB);
-D=log(1+abs(F));
-D =fftshift(D);
-imagesc(D);
 
-[width,height]=size(imB);
-H=zeros(width,height);
-H(width,20)=0.5;
-H(8,1)=0.5;
-H=fft2(H);
-h = find(abs(H)<0.001);
-H(h)=1;
-
-
-showImage(abs(ifft2(F./H)));
-%[x,y]=ginput(2);
-
-
-%}
