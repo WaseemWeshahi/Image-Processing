@@ -202,13 +202,14 @@ imA = readImage('mission.tif');
 showFFT(imA);
 F = fft2(imA);
 % mask = ones(size(imA));
-% mid = size(imA)/2;
+mid = size(imA)/2;
 % mask(mid(1)-22:mid(1)+22,mid(2)-22:mid(2)+22) = 0.3;
 % mask(mid(1)-20:mid(1)+20,mid(2)-20:mid(2)+20)=1;
 % mask = cleanImageMean(mask,[4 4],10);
 mask = band(size(imA),25,10);
 mask = ifftshift(mask);
-
+mask(mid(1)-5:mid(1)+5,:)=255;
+mask(:,mid(2)-5:mid(2)+5)=255;
 f = ifft2(F.*(mask/255),'symmetric');
 showImage(f);
 
