@@ -3,21 +3,11 @@ imA = readImage('blocks.tif');
 
 showImage(imA);
 
-imB = maxIm(minIm(minIm(maxIm(imA,[01,1]),[1,1]),[1,1]),[1,1]);
-%showImage(imB);
+imB=cleanImageMedian(imA,[2 0]);
+putImage(imB);
 
-F=fft2(imB);
-%D=log(1+abs(f));
-%D =fftshift(D);
-%imagesc(D);
-H=circle(size(imB),20);
-%H=~H;
-%showImage(H);
-H = ifftshift(H);
-f = ifft2(F.*(H/255),'symmetric');
-%putImage(f+128);
-showImage(imB);
-showImage(f+imB);
+
+
 
 %}
 
@@ -107,7 +97,7 @@ showImage(bim);
 %{
 imB = readImage('house.tif');
 t = 5;
-showImage(imB);showImage(imB);
+%showImage(imB);showImage(imB);
 showFFT(imB);
 G=fft2(imB);
 [n,m] = size(imB);
@@ -122,23 +112,51 @@ h(n/2,m/2 - t:m/2 + t)=1;
 showFFT(h);
 H = fft2(h);
 Hstr = conj(H);
-lambda = 2;
+lambda = 0;
 u = 128;
 v = u;
 F = (Hstr.*G) ./ (Hstr.*H+lambda*(u^2+v^2));
+showImage(imB);
+
 D=log(1+abs(F));
 D =fftshift(D);
 imagesc(D);
-f = ifft2(F,'symmetric');
+
+M = zeros(n,m);
+M(8,20)=0.5;
+%M(1,height)=-0.2;
+M(8,8)=0.5;
+M = fft2(M);
+D=log(1+abs(M));
+D =fftshift(D);
+figure,imagesc(D);
+title('first');
+for i=1:m
+    for j=1:n
+        if i==1
+            M(i,j)=1;
+        end
+    end
+end
+M = fft2(M);
+D=log(1+abs(M));
+D =fftshift(D);
+figure,imagesc(D);
+title('wish');
+h = find(abs(M)<0.1);
+M(h)=1;
+
+f = ifft2(F./M,'symmetric');
 showImage(f);
 
-%[x,y]=ginput(2);
 
 
 %}
 %%%%%%%%%%%%%%%%%%%%%%%
+%{
 imA = readImage('stroller.tif');
 showImage(imA);
+imO = readImage('stroller2.tif');
 
 F=fft2(imA);
 H=circle(size(imA),20);
@@ -146,11 +164,42 @@ H = ifftshift(H);
 f = ifft2(F.*(H/255),'symmetric');
 %showImage(f+128);
 showImage(imA +f);
-
-imA = imA+f;
-F=fft2(imA);
-H=circle(size(imA),7);
+Psnr1 = calcPSNR((imA+f),imO);
+%title('HPF+orginal');
+imB = imA+f;
+F=fft2(imB);
+H=circle(size(imB),7);
 H = ifftshift(H);
 f = ifft2(F.*(H/255),'symmetric');
 %showImage(f+128);
 showImage(imA +f);
+Psnr2 = calcPSNR((imA+f),imO);
+%title('HPF(HPF+orginal)+orginal');
+showImage(imB +f);
+Psnr3 = calcPSNR((imB+f),imO);
+%title('HPF(HPF+orginal)+(HPF+original');
+imC = sharpen(imA,2,2,5);
+Psnr4 = calcPSNR(imC,imO);
+
+showImage(imC);
+showImage(imO);
+
+
+
+%}
+%%%%%%%%%%%%%%%%%%%%%5
+
+imA = readImage('face.tif');
+showImage(imA);
+imB=cleanImageMedian(imA,[1 1]);
+%showImage(imB);
+imB=cleanImageMedian(imB,[1 0]);
+%showImage(imB);
+imB=cleanImageMedian(imB,[1 0]);
+%showImage(imB);
+imC = sharpen(imB,2,2,2);
+showImage(imC);
+%{
+
+%}
+%}
