@@ -15,7 +15,7 @@ putImage(imB);
 %{
 imA = readImage('oldWoman');
 showImage(imA);
- 
+[width,height] = size(imA);
 F=fft2(imA);
 D=log(1+abs(F));
 D =fftshift(D);
@@ -143,6 +143,7 @@ imagesc(D);
 
 f = ifft2(F,'symmetric');
 clean = [fu;f];
+showImage(clean);
 %[x,y]=ginput(2);
 
 
@@ -196,4 +197,5 @@ showImage(imC);
 
 
 %}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
