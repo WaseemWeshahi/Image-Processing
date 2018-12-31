@@ -93,65 +93,59 @@ showImage(bim);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 %{
-imB = readImage('house.tif');
-t = 5;
-%showImage(imB);showImage(imB);
-showFFT(imB);
-G=fft2(imB);
-[n,m] = size(imB);
+im = readImage('house.tif');
+imU = im; % Upper image
+imB = im;
+imU(128:256,:)=[];
+imB(1:127,:)=[];
+showImage(imU);
+showFFT(imU);
+G=fft2(imU);
+[n,m] = size(G);
 % mask =ones(n,m);
 % mask(:,1:r)=1;
 % mask(:,m-r:m)=0;
 % mask(r:n-r,r:m-r)=0;
 % showImage(fftshift(mask)*255);
-h = zeros(n,m);
-h(n/2,m/2 - t:m/2 + t)=1;
- h = h/ length(find(h==1));
+t = 10;
+mask = zeros(1,t);
+mask(1,:) = 1/t;
+h = zeros(size(G));
+h(1,1:t)=mask;
 showFFT(h);
 H = fft2(h);
 Hstr = conj(H);
-lambda = 0;
-u = 128;
-v = u;
-F = (Hstr.*G) ./ (Hstr.*H+lambda*(u^2+v^2));
-showImage(imB);
+lambda= 0.00005;
+FU = (G.*Hstr)./(H.*Hstr+lambda);
+fu = ifft2(FU,'symmetric');
+showImage(fu);
+
+G = fft2(imB);
+mask = zeros(1,t);
+mask(1,:) = 1/t;
+h = zeros(size(G));
+h(1,1:t)=mask;
+showFFT(h);
+H = fft2(h);
+Hstr = conj(H);
+lambda= 0.000008;
+F = H;
+for u=1:size(imB,1)
+    for v=1:size(imB,2)
+        F(u,v) = (Hstr(u,v)*G(u,v))/ (Hstr(u,v)*H(u,v)+lambda*(u^2+v^2));
+    end
+end
 
 D=log(1+abs(F));
 D =fftshift(D);
 imagesc(D);
 
-M = zeros(n,m);
-M(8,20)=0.5;
-%M(1,height)=-0.2;
-M(8,8)=0.5;
-M = fft2(M);
-D=log(1+abs(M));
-D =fftshift(D);
-figure,imagesc(D);
-title('first');
-for i=1:m
-    for j=1:n
-        if i==1
-            M(i,j)=1;
-        end
-    end
-end
-M = fft2(M);
-D=log(1+abs(M));
-D =fftshift(D);
-figure,imagesc(D);
-title('wish');
-h = find(abs(M)<0.1);
-M(h)=1;
-
-f = ifft2(F./M,'symmetric');
-showImage(f);
+f = ifft2(F,'symmetric');
+clean = [fu;f];
+%[x,y]=ginput(2);
 
 
-
-%}
 %%%%%%%%%%%%%%%%%%%%%%%
 %{
 imA = readImage('stroller.tif');
@@ -199,7 +193,7 @@ imB=cleanImageMedian(imB,[1 0]);
 %showImage(imB);
 imC = sharpen(imB,2,2,2);
 showImage(imC);
-%{
+
 
 %}
-%}
+
