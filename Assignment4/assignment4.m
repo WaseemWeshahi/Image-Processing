@@ -198,6 +198,7 @@ showImage(imC);
 
 %}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%{
 imA = readImage('mission.tif');
 showFFT(imA);
 F = fft2(imA);
@@ -212,7 +213,7 @@ mask(mid(1)-5:mid(1)+5,:)=255;
 mask(:,mid(2)-5:mid(2)+5)=255;
 f = ifft2(F.*(mask/255),'symmetric');
 showImage(f);
-
+%}
 
 
 
