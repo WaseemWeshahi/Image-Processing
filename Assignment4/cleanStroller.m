@@ -1,4 +1,8 @@
 function cleanStroller()
+    disp('%%%%%%%%%%%%%%%%%%%%%%%%% STROLLER %%%%%%%%%%%%%%%%%%%%%%%%%');
+    disp('BAYAN INSERT DESCRIPTION HERE');
+    disp('figure(1) - Original Noisy image');
+    disp('figure(2) - Cleaned Image');  
     imA = readImage('stroller.tif');
     showImage(imA);
     imO = readImage('stroller2.tif');
