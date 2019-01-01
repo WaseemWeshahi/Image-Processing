@@ -238,6 +238,9 @@ showImage(f);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
+im = readImage('windows');
+showImage(im);
+clean = imbilatfilt(im,500,10);
+showImage(clean);
 
 
