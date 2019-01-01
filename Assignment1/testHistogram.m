@@ -75,7 +75,7 @@ close all
 %c
 % Here we maximize contrast whilst maintaining the same mean value of the
 % original image
-im = readImage('darkImage.tif');
+im = readImage('dark.tif');
 h1 = nhistImage(im);
 tm = zeros(1,256);
 axis = 0:255;

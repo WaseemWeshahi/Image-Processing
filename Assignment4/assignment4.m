@@ -145,7 +145,7 @@ f = ifft2(F,'symmetric');
 clean = [fu;f];
 showImage(clean);
 %[x,y]=ginput(2);
-
+%}
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %{
@@ -182,8 +182,27 @@ showImage(imO);
 
 
 %}
+%%%%%%%%%%%%%%%%%%%%%%
+% STROLLER using FFT
+%{
+im = readImage('stroller');
+showImage(im);
+showFFT(im);
+G=fft2(im);
+%%% make the gaussia kernel
+mask = getGaussianKernel([4 4],10);
+h = zeros(size(G));
+h(1:size(mask,1),1:size(mask,2))=mask;
+showFFT(h);
+H = fft2(h);
+Hstr = conj(H);
+lambda= 0.000001;
+FU = (G.*Hstr)./(H.*Hstr+lambda);
+f = ifft2(FU,'symmetric');
+showImage(f);
+%}
 %%%%%%%%%%%%%%%%%%%%%5
-
+%{
 imA = readImage('face.tif');
 showImage(imA);
 imB=cleanImageMedian(imA,[1 1]);
@@ -198,7 +217,7 @@ showImage(imC);
 
 %}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%{
 imA = readImage('mission.tif');
 showFFT(imA);
 F = fft2(imA);
@@ -214,6 +233,10 @@ mask(mid(1)-5:mid(1)+5,:)=255;
 mask(:,mid(2)-5:mid(2)+5)=255;
 f = ifft2(F.*(mask/255),'symmetric');
 showImage(f);
+%}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
