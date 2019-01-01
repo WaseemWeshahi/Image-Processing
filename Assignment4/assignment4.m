@@ -240,7 +240,7 @@ showImage(f);
 
 im = readImage('windows');
 showImage(im);
-clean = imbilatfilt(im,500,10);
+clean = bilat(im,4,5,20);
 showImage(clean);
 
 
