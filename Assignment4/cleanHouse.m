@@ -11,6 +11,8 @@ function cleanHouse()
     disp('AND gaussian noise were applied');
     disp('so after guessing the parameters with trial and error we have reached the following');
     disp('result shown in figure 2.');
+    disp('figure(1) - Original Noisy image');
+    disp('figure(2) - Cleaned Image');
     %% Splitting the Image
     im = readImage('house.tif');
     imU = im; % Upper image
