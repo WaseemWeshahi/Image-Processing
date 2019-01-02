@@ -33,18 +33,7 @@ function cleanHouse()
     FU = (G.*Hstr)./(H.*Hstr+lambda);
     fu = ifft2(FU,'symmetric');
     %% cleaning the Bottom part (Weinerr Filtering)
-    G = fft2(imB);
-    h = zeros(size(G)); % setting the FFT of the mask to be the same size as G's
-    h(1,1:t)=mask;
-    H = fft2(h);
-    Hstr = conj(H);    lambda= 0.000008; % 0.000008 seemed to work well
-    F = H; % Simply setting its size..
-    % Those Loops apply Weinerr filter for each cell
-    for u=1:size(imB,1)
-        for v=1:size(imB,2)
-            F(u,v) = (Hstr(u,v)*G(u,v))/ (Hstr(u,v)*H(u,v)+lambda*(u^2+v^2));
-        end
-    end
+    F = weiner(imB,mask,0.000008); % 0.000008 seemed to work well
     f = ifft2(F,'symmetric');
     %% concatenating the two parts and showing them to the screen
     clean = [fu;f];
