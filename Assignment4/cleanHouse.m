@@ -11,8 +11,11 @@ function cleanHouse()
     disp('AND gaussian noise were applied');
     disp('so after guessing the parameters with trial and error we have reached the following');
     disp('result shown in figure 2.');
+    disp('as we notice, the upper part has some gaussian noise to it');
+    disp('so we add bilateral filter to clean it out');
     disp('figure(1) - Original Noisy image');
-    disp('figure(2) - Cleaned Image');
+    disp('figure(2) - Cleaned Image - BEFORE bilateral filtering');
+    disp('figure(3) - Cleaned Image');
     %% Splitting the Image
     im = readImage('house.tif');
     imU = im; % Upper image
@@ -20,6 +23,7 @@ function cleanHouse()
     imU(128:256,:)=[];
     imB(1:127,:)=[];
     %% cleaning the Upper part (Inverse Filtering)
+    % preparing the mask and the FFT of the image
     G=fft2(imU);
     t = 10; % the motion blur's kernel, 10 worked well
     mask = zeros(1,t);
@@ -28,6 +32,7 @@ function cleanHouse()
     h(1,1:t)=mask;
     H = fft2(h); % H is the FFT of the motion blur's mask
     Hstr = conj(H);
+    
     lambda= 0.00005; % 0.00005 seemed to work well
     % After setting the parameters, we apply the inverse filtering
     FU = (G.*Hstr)./(H.*Hstr+lambda);
@@ -39,4 +44,5 @@ function cleanHouse()
     clean = [fu;f];
     showImage(im);
     showImage(clean);
+    showImage(bilat(clean,4,30,10));
 end
