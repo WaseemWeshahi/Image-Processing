@@ -9,9 +9,9 @@ function cleanWindows()
     disp('*Parameters:');
     disp('maskRadius : [4 4]');
     disp('sigma_d = 30');
-    disp('sigma_r = 10');
+    disp('sigma_r = 20');
     im = readImage('windows');
     showImage(im);
-    clean = bilat(im,4,30,10);
+    clean = bilat(im,4,30,20);
     showImage(clean);
 end

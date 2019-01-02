@@ -44,8 +44,10 @@ function cleanHouse()
     F = weiner(imB,mask,0.000008); % 0.000008 seemed to work well
     f = ifft2(F,'symmetric');
     %% concatenating the two parts and showing them to the screen
+    % and applying the Bilat filter
     clean = [fu;f];
     showImage(im);
     showImage(clean);
-    showImage(bilat(clean,4,30,10));
+    clean = bilat(clean,4,30,10);
+    showImage(clean);
 end
