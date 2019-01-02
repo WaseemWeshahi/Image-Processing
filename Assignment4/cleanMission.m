@@ -1,7 +1,7 @@
 function cleanMission()
     disp('%%%%%%%%%%%%%%%%%%%%%%%%% CUPS %%%%%%%%%%%%%%%%%%%%%%%%%');
     disp('This image is noised by ringing, and we have learned in class that');
-    disp('the "ringing" part of the image is placed in a ring arounf the center point');
+    disp('the "ringing" part of the image is placed in a ring around the center point');
     disp('And if we look the FFT of the image, notice a weird white square ring');
     disp('around the ceneter');
     disp('so our intuitions tell us that the ringing comes from that area,');
@@ -18,7 +18,7 @@ function cleanMission()
     showFFT(imA);
     F = fft2(imA);
     
-    % Creating the "black ring" mask
+    % Creating the "black ring" mask and smoothly spreading it
     mask = ones(size(imA));
     mask = 255*mask;
     mid = size(imA)/2;

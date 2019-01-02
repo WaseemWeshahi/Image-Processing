@@ -33,6 +33,3 @@ function cleanFace()
     imC = sharpen(imB,2,2,2);
     showImage(imC);
 end
-
-%% Note: 
-% we need to show that cropping the faces and median-ing them is not good

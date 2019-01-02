@@ -17,12 +17,9 @@ function cleanOldWoman()
     imA = readImage('oldWoman');
     showImage(imA);
     showFFT(imA);
-    [width,height] = size(imA);
+    [height,width] = size(imA);
     F=fft2(imA);
      
-    % using the above 4 lines of code, we have managed to discover the exact
-    % indecies in f we need to put to zero
-
      for i=1:width
          for j=1:height
              if(j==32 ||j==31 || j==30 )&&(  i==21)

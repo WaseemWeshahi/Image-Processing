@@ -17,7 +17,6 @@ function cleanCups()
     [width,height]=size(imB);
     M = zeros(width,height);
     M(8,20)=0.5;
-    %M(1,height)=-0.2;
     M(6,1)=0.5;
 
     M = fft2(M);

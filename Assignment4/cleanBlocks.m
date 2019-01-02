@@ -6,7 +6,7 @@ function cleanBlocks()
     disp('give us the desired results horiziontally, thats why we apply: ');
     disp('VERTICAL MEDIAN aka median cleaning with a mask that goes horziontally');
     disp('figure(1) - Original Noisy image');
-    disp('figure(2) - Cleaned Image');
+    disp('figure(2) - Cleaned Image (median with maskRadius = [2 0])');
     imA = readImage('blocks.tif');
     showImage(imA);
     imB=cleanImageMedian(imA,[2 0]);
