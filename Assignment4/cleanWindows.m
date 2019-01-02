@@ -6,6 +6,10 @@ function cleanWindows()
     disp('meaning that we have to use:');
     disp('BILATERAL FILTIRING');
     disp('and the result is as shown in figure 2');
+    disp('*Parameters:');
+    disp('maskRadius : [4 4]');
+    disp('sigma_d = 30');
+    disp('sigma_r = 10');
     im = readImage('windows');
     showImage(im);
     clean = bilat(im,4,30,10);

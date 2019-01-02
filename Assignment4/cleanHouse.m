@@ -16,6 +16,9 @@ function cleanHouse()
     disp('figure(1) - Original Noisy image');
     disp('figure(2) - Cleaned Image - BEFORE bilateral filtering');
     disp('figure(3) - Cleaned Image');
+    disp('*Parameters:');
+    disp('upper: t=10, lambda = 0.00005');
+    disp('lower: t=10, lambda = 0.000008');
     %% Splitting the Image
     im = readImage('house.tif');
     imU = im; % Upper image
