@@ -4,7 +4,7 @@ function cleanStroller()
     disp('so we thought that all we need to do is to shrpen it.');
     disp('we have tried several ways of sharpening the image:');
     disp('1)by using high pass filter:');
-    disp('  1-1) aHPF+orginal.');
+    disp('  1-1) HPF+orginal.');
     disp('  1-2) HPF(HPF+orginal)+orginal.');
     disp('  1-3) HPF(HPF+orginal)+(HPF+original.');
     disp('2) or we could simply use sharpen function we have written in HW3');
@@ -44,25 +44,3 @@ function cleanStroller()
     showImage(imC);
     showImage(imO);
 end
-
-%The following section is just there so that i dont delete what i've wasted
-%my time on:(
-%%%%%%%%%%%%%%%%%%%%%%
-% STROLLER using FFT
-%{
-im = readImage('stroller');
-showImage(im);
-showFFT(im);
-G=fft2(im);
-%%% make the gaussia kernel
-mask = getGaussianKernel([4 4],10);
-h = zeros(size(G));
-h(1:size(mask,1),1:size(mask,2))=mask;
-showFFT(h);
-H = fft2(h);
-Hstr = conj(H);
-lambda= 0.000001;
-FU = (G.*Hstr)./(H.*Hstr+lambda);
-f = ifft2(FU,'symmetric');
-showImage(f);
-%}
