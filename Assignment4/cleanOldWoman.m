@@ -1,12 +1,25 @@
 function cleanOldWoman()
+    disp('%%%%%%%%%%%%%%%%%%%%%%%%% OLD WOMAN %%%%%%%%%%%%%%%%%%%%%%%%%');
+    disp('we can observe that in this image there is a frequent noise we ');
+    disp('need to remove - which is so identical to the dog image we have seen');
+    disp('in class. ');
+    disp('Therefore we have transformed the image using fft2 to the fourier domain.');
+    disp('We could observe four white points which seem a bit off to the image ');
+    disp('- which is actually the FFT of the  frequency noise-.');
+    disp('So all we had to do is to find out the coordiantes of these points, and make them zero');
+    disp('we did that using the ginput matlab function. we made these point equal to zero in');
+    disp('the Fourier domain, then we applied the inverse transform on the image');
+    disp('and magically the noise was gone!');
+    disp('figure 1 : The noisy image');
+    disp('figure 2 : the FFT of the image, notice the four white dots around the origin');
+    disp('figure 3 : the clean Image');
+    
     imA = readImage('oldWoman');
     showImage(imA);
+    showFFT(imA);
     [width,height] = size(imA);
     F=fft2(imA);
-    D=log(1+abs(F));
-    D =fftshift(D);
-    imagesc(D);
-
+     
     % using the above 4 lines of code, we have managed to discover the exact
     % indecies in f we need to put to zero
 

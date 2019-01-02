@@ -1,6 +1,17 @@
 function cleanStroller()
     disp('%%%%%%%%%%%%%%%%%%%%%%%%% STROLLER %%%%%%%%%%%%%%%%%%%%%%%%%');
-    disp('BAYAN INSERT DESCRIPTION HERE');
+    disp('The stroller image was blurred.');
+    disp('so we thought that all we need to do is to shrpen it.');
+    disp('we have tried several ways of sharpening the image:');
+    disp('1)by using high pass filter:');
+    disp('  1-1) aHPF+orginal.');
+    disp('  1-2) HPF(HPF+orginal)+orginal.');
+    disp('  1-3) HPF(HPF+orginal)+(HPF+original.');
+    disp('2) or we could simply use sharpen function we have written in HW3');
+    disp('In our eyes,The sharpen seemed to work better.But PSNR suggests the 1-1 actually is the better one');
+    
+    
+
     disp('figure(1) - Original Noisy image');
     disp('figure(2) - Cleaned Image');  
     imA = readImage('stroller.tif');
