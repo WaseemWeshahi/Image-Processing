@@ -8,39 +8,56 @@ function cleanStroller()
     disp('  1-2) HPF(HPF+orginal)+orginal.');
     disp('  1-3) HPF(HPF+orginal)+(HPF+original.');
     disp('2) or we could simply use sharpen function we have written in HW3');
-    disp('In our eyes,The sharpen seemed to work better.But PSNR suggests the 1-1 actually is the better one');
+    disp('In our eyes,The sharpen seemed to work better.But PSNR suggests the 1-1 actually is the better one!');
+    disp('so we have decided to show you both of the resullts');
     
     
 
     disp('figure(1) - Original Noisy image');
-    disp('figure(2) - Cleaned Image');  
+    disp('figure(2) - Cleaned Image by HPF');
+    disp('figure(3) - Cleaned Image by shrapen function from hw3');  
+
     imA = readImage('stroller.tif');
     showImage(imA);
     imO = readImage('stroller2.tif');
-
-    F=fft2(imA);
-    H=circle(size(imA),20);
-    H = ifftshift(H);
-    f = ifft2(F.*(H/255),'symmetric');
-    %showImage(f+128);
-    showImage(imA +f);
-    Psnr1 = calcPSNR((imA+f),imO);
-    %title('HPF+orginal');
-    imB = imA+f;
-    F=fft2(imB);
-    H=circle(size(imB),7);
-    H = ifftshift(H);
-    f = ifft2(F.*(H/255),'symmetric');
-    %showImage(f+128);
-    showImage(imA +f);
-    Psnr2 = calcPSNR((imA+f),imO);
-    %title('HPF(HPF+orginal)+orginal');
-    showImage(imB +f);
-    Psnr3 = calcPSNR((imB+f),imO);
-    %title('HPF(HPF+orginal)+(HPF+original');
-    imC = sharpen(imA,2,2,5);
+imC = sharpen(imA,2,2,5);
     Psnr4 = calcPSNR(imC,imO);
+   disp(Psnr4);
 
     showImage(imC);
-    showImage(imO);
+    F=fft2(imA);
+    H=circle(size(imA),50);
+    H = ifftshift(H);
+    f = ifft2(F.*(H/255),'symmetric');
+    showImage(imA +f);
+    Psnr1 = calcPSNR((imA+f),imO);
+    disp(Psnr1);
+   
+    
+    imA = imA+f;
+F=fft2(imA);
+H=circle(size(imA),20);
+H = ifftshift(H);
+f = ifft2(F.*(H/255),'symmetric');
+showImage(imA +f);
+Psnr3 = calcPSNR((imA+f),imO);
+   disp(Psnr3);
+   
+    imA = imA+f;
+F=fft2(imA);
+H=circle(size(imA),30);
+H = ifftshift(H);
+f = ifft2(F.*(H/255),'symmetric');
+showImage(imA +f);
+Psnr5 = calcPSNR((imA+f),imO);
+   disp(Psnr5);
+   imA = imA+f;
+F=fft2(imA);
+H=circle(size(imA),40);
+H = ifftshift(H);
+f = ifft2(F.*(H/255),'symmetric');
+showImage(imA +f);
+Psnr5 = calcPSNR((imA+f),imO);
+   disp(Psnr5);
+   showImage(imO);
 end
