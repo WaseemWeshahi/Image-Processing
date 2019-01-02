@@ -38,6 +38,12 @@ disp('press any key to finish...');
 pause();
 close all
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+cleanStroller();
+disp('press any key to finish...');
+pause();
+close all
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 disp('That is it for the testing script');
 disp('Thank You for your time,');
 disp('Waseem Weshahi & Bayan Farhan');
+

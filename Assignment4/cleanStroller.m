@@ -13,7 +13,9 @@ function cleanStroller()
     disp('The result was very close to what should it be, but it was noised!');
     disp('So we used bilateral filtering to denoise it and the result was stunning!');
     disp('figure(1) - Original Noisy image');
-    disp('figure(2) - The Cleaned Image by HPF and bilateral filtering');
+    disp('figure(2) - The Cleaned Image by HPF (but noised)');
+    disp('figure(3) - The final Image,cleaned by bilateral filtering ');
+
     
     imA = readImage('stroller.tif');
     showImage(imA);
@@ -55,7 +57,7 @@ function cleanStroller()
     H = ifftshift(H);
     f = ifft2(F.*(H/255),'symmetric');
     imG=imA+f;%imG = imA+f=imA+HPF(imA)+HPF(imA+HPF(imA))+HPF(imA+HPF(imA)+HPF(imA+HPF(imA)))+HPF(imA+HPF(imA)+HPF(imA+HPF(imA))+HPF(imA+HPF(imA)+HPF(imA+HPF(imA))))
-
+    showImage(imG);
     clean=bilat(imG,4,9,9); %imG is a little bit noised from the whole filters we have done, so we denoise it using bilateral filtering
     showImage(clean);
    
