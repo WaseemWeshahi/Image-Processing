@@ -4,6 +4,9 @@ function F = weiner(im,mask,lambda)
 %           mask - the mask that is believed to have been applied
 %           lambda - the weiner constant
 % OUTPUT:   F - the FFT of the cleaned image
+%
+% Created By:
+% Waseem Weshahi & Bayan Farhan.
     G = fft2(im);
     h = zeros(size(G)); % setting the FFT of the mask to be the same size as G's
     h(1:size(mask,1),1:size(mask,2))=mask;
