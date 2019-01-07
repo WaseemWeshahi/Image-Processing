@@ -5,4 +5,6 @@ for i=2:levels
     G{i} = downSample(G{i-1});
 end
 
+end
+
     
