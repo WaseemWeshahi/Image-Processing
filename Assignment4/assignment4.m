@@ -1,4 +1,7 @@
 disp('The Testing Script.');
+% Submitted By:
+% Waseem Weshahi    206943391
+% Bayan Farhan      208300145
 % The exact description with the used parameters for each image is
 % explained in the corresponding function
 % select the function and press CTRL+D to view image's explaination
