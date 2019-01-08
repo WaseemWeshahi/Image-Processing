@@ -24,5 +24,10 @@ if nargin<4
     show=false;
 end
 
+randomized = randn(size(texture));
+Lt = laplacPyr(texture,numLevels);    %Laplacian of input texture
+Lr = laplacPyr(randomized,numLevels); %Laplacian for randomized texture
+
+
 
 end
