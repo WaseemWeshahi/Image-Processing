@@ -18,3 +18,19 @@ function    newtexture = textureSynthesisRGB(textureRGB,numLevels,numRepeats,sho
 %
 % Written By:
 % Waseem Weshahi & Bayan Farhan
+
+if nargin<4
+    show=false;
+end
+newtexture = zeros(size(textureRGB)); % setting the size
+for j=1:numRepeats
+    for i=1:3
+        newtexture(:,:,i) = textureSynthesis(textureRGB(:,:,i),numLevels,numRepeats,0);
+    end
+    if(show)
+        imshow(newtexture/255);
+        disp('press space to continue iterating');
+        pause;  
+    end
+end
+end

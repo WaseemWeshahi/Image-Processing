@@ -1,4 +1,2 @@
-imA = readImage('lena.tif');
-L = laplacPyr(imA,4);
-im = collapseLapPyr(L);
-showImage(im);
+textureRGB = im2double(imread('candy.jpg'))*255;
+synth = textureSynthesisRGB(textureRGB,4,4,true);
