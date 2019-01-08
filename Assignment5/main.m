@@ -1,2 +1,2 @@
 imA = readImage('lena.tif');
-upSample(downSample(imA));
+L = laplacPyr(imA,4);
