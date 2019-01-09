@@ -35,7 +35,7 @@ for j=1:numRepeats
     % and saving it back in Lr
     for i = 1:numLevels
         %%%TODO: IMPLEMENT OUR OWN imhistmatch
-        Lr{i} = imhistmatch(round(Lr{i}+128)/255,round(Lt{i}+128)/255)*255-128; % POSSIBLE BUG: consider switching arguments
+        Lr{i} = imhistmatch(round(Lt{i}+128)/255,round(Lr{i}+128)/255)*255-128; % POSSIBLE BUG: consider switching arguments
     end
     newtexture = collapseLapPyr(Lr);
     if(show)
