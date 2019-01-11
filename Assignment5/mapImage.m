@@ -12,7 +12,8 @@ if(sum(find(tm<0)) || sum(find(tm>255)))
     disp('ERROR: not a valid tone map')
     return;
 end
-
 %applying the mapping using the tone map
-nim = tm(im+1);
+
+im(im==0)=1;
+nim = tm(round(im));
 end

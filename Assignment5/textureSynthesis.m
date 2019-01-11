@@ -29,13 +29,14 @@ randomized = round(randomized*255);
 Lt = laplacPyr(texture,numLevels);    %Laplacian of input texture
 Lr = laplacPyr(randomized,numLevels); %Laplacian for randomized texture
 
+
 % applying the Heeger and Bergen method "numRepeats" times
 for j=1:numRepeats
     % Histogram shaping each level of Laplacian Pyramid from random image to texture image
     % and saving it back in Lr
     for i = 1:numLevels
         %%%TODO: IMPLEMENT OUR OWN imhistmatch
-        Lr{i} = imhistmatch(round(Lt{i}+128)/255,round(Lr{i}+128)/255)*255-128; % POSSIBLE BUG: consider switching arguments
+        Lr{i} = imHistShape(round(Lt{i}-min(min(Lt{i}))),round(Lr{i}-min(min(Lr{i})))); % POSSIBLE BUG: consider switching arguments
     end
     newtexture = collapseLapPyr(Lr);
     if(show)

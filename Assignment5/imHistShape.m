@@ -8,9 +8,13 @@ function    nim = imHistShape (im1,im2)
 % Waseem Weshahi I.D: 206943391
 % Bayan Farhan   I.D: 208300145
 
+im1(im1>255)=255;
+im2(im2>255)=255;
 h1 = nhistImage(im1);
 h2 = nhistImage(im2);
-% findingthe right tone map to perform the histogram equaliaztion
+% finding the right tone map to perform the histogram equaliaztion
 tm = histShape(h1,h2);
+
+
 nim = mapImage(im1,tm);
 end
