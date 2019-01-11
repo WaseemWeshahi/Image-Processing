@@ -1,2 +1,2 @@
-textureRGB = im2double(imread('candy.jpg'))*255;
-synth = textureSynthesisRGB(textureRGB,4,4,false);
+textureRGB = im2double(imread('texture5bw.tif'))*255;
+synth = textureSynthesis(textureRGB,5,3,true);
