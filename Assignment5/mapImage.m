@@ -14,6 +14,5 @@ if(sum(find(tm<0)) || sum(find(tm>255)))
 end
 %applying the mapping using the tone map
 
-im(im==0)=1;
-nim = tm(round(im));
+nim = tm(im+1);
 end

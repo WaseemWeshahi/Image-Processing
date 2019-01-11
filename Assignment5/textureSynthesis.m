@@ -35,10 +35,9 @@ for j=1:numRepeats
     % Histogram shaping each level of Laplacian Pyramid from random image to texture image
     % and saving it back in Lr
     for i = 1:numLevels
-        %%%TODO: IMPLEMENT OUR OWN imhistmatch
-        Lr{i} = imHistShape(round(Lt{i}-min(min(Lt{i}))),round(Lr{i}-min(min(Lr{i})))); % POSSIBLE BUG: consider switching arguments
+        Lr{i} = imHistShape(adjustRange(Lt{i}),adjustRange(Lr{i})); % POSSIBLE BUG: consider switching arguments
     end
-    newtexture = collapseLapPyr(Lr);
+    newtexture = adjustRange(collapseLapPyr(Lr));
     if(show)
         showImage(newtexture);
         disp('press space to continue iterating');
