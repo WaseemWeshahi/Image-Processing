@@ -25,8 +25,8 @@ if nargin<4
 end
 
 newtexture = rand(size(texture))*255;
-%newtexture = adjustRange(newtexture,0);
-%newtexture = imhistmatch(newtexture/255,texture/255,256)*255; 
+newtexture = adjustRange(newtexture,0);
+newtexture = imhistmatch(newtexture/255,texture/255,256)*255; 
 
 Lt = laplacPyr(texture,numLevels);    %Laplacian of input texture
 %Lr = laplacPyr(newtexture,numLevels); %Laplacian for randomized texture
@@ -39,12 +39,18 @@ for j=1:numRepeats
     % and saving it back in Lr
     Lr = laplacPyr(newtexture,numLevels);
    
+      
        for i = 1:numLevels
-            Lr{i} = imhistmatch(Lr{i},Lt{i},256); % POSSIBLE BUG: consider switching arguments
+           %[lr,mx1,mn1]=adjustRange(Lr{i},0);
+           %[lt,mx2,mn2]=adjustRange(Lt{i},0);
+            new = imhistmatch(Lr{i}/255,Lt{i}/255,256)*255; % POSSIBLE BUG: consider switching arguments
+            %new=(new*(mx1-mn1)/255)+mn1;
+            Lr{i}=new;
        end
-    
+   
     newtexture = (collapseLapPyr(Lr));
-    newtexture = adjustRange(newtexture,0);
+    %newtexture = adjustRange(newtexture,0);
+    newtexture = imhistmatch(newtexture/255,texture/255,256)*255;
     if(show)
         showImage(newtexture);
         disp('press space to continue iterating');

@@ -1,6 +1,6 @@
-function nim = adjustRange(im,percent)
+function [nim,maxi,mini] = adjustRange(im,percent)
 % this function makes sure that the image's values are between 0 and 255
-%{
+
 if nargin<2
    percent = 0.08; 
 end
@@ -11,13 +11,12 @@ nelements = round(percent*m*n);
 im = round(im);
 nim = im;
 im([maxind;minind])=[];
+maxi=max(im,[],'all');
+mini=min(im,[],'all');
 nim = (nim-min(im,[],'all'))*255/(max(im,[],'all')-min(im,[],'all'));
 nim(maxind)=255;
 nim(minind)=0;
 nim = round(nim);
-%}
-nim=im*(255/median(median(median(im))));
-nim(nim<128)=nim(nim<128)-min(min(min(nim)));
-nim(nim>128)=nim(nim>128)+255-max(max(max(nim)));
+
 
 end
