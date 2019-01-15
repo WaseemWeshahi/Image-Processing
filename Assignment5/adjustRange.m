@@ -2,7 +2,7 @@ function [nim,maxi,mini] = adjustRange(im,percent)
 % this function makes sure that the image's values are between 0 and 255
 
 if nargin<2
-   percent = 0.08; 
+   percent = 0.0; 
 end
 [m,n] = size(im);
 nelements = round(percent*m*n);

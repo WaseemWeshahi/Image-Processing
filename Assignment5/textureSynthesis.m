@@ -40,19 +40,20 @@ for j=1:numRepeats
     Lr = laplacPyr(newtexture,numLevels);
    
       
-       for i = 1:numLevels
-           %[lr,mx1,mn1]=adjustRange(Lr{i},0);
-           %[lt,mx2,mn2]=adjustRange(Lt{i},0);
-            new = imhistmatch(Lr{i}/255,Lt{i}/255,256)*255; % POSSIBLE BUG: consider switching arguments
-            %new=(new*(mx1-mn1)/255)+mn1;
-            Lr{i}=new;
-       end
+   for i = 1:numLevels
+       [lr,mx1,mn1]=adjustRange(Lr{i},0);
+       [lt,~,~]=adjustRange(Lt{i},0);
+        new = imhistmatch((lr)/255,(lt)/255,256)*255; % POSSIBLE BUG: consider switching arguments
+        new=(new*(mx1-mn1)/255)+mn1;
+        Lr{i}=new;
+   end
    
     newtexture = (collapseLapPyr(Lr));
-    %newtexture = adjustRange(newtexture,0);
-    newtexture = imhistmatch(newtexture/255,texture/255,256)*255;
+%     newtexture = adjustRange(newtexture,0);
+    newtexture = imhistmatch(newtexture/255,texture/255)*255;
     if(show)
-        showImage(newtexture);
+        toshow = adjustRange(newtexture,0);
+        showImage(toshow);
         disp('press space to continue iterating');
         pause;
     end
