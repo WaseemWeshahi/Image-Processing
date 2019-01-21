@@ -8,18 +8,9 @@ function    US = upSample(I)
 % Written By:
 % Waseem Weshahi & Bayan Farhan
 
-F = fft2(I);
-newF = fftshift(F);    
-% Padding the image with zeros
+newF = fft2(I);
+newF = fftshift(newF);    
 [m,n] = size(newF);
-
-bigF = zeros(2 * size(I));
-
-bigF(m/2+1:m+m/2, n/2+1:n+n/2) = newF*4;
-bigF = fftshift(bigF);
-US = ifft2(bigF,'symmetric');
-
-return;
 
 maskRadius = [m/2,n/2];
 newF = [[zeros(maskRadius(1),n);newF] zeros(m+maskRadius(1),maskRadius(2))]; % Padding at the top and the right 
