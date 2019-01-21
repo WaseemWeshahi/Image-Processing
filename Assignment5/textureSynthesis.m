@@ -39,16 +39,14 @@ for j=1:numRepeats
     % and saving it back in Lr
 %     Lr = laplacPyr(newtexture,numLevels); 
    for i = 1:numLevels
-        [lr,mx1,mn1]=adjustRange(Lr{i},0);
+        [lr,~,~]=adjustRange(Lr{i},0);
         [lt,~,~]=adjustRange(Lt{i},0);
-        new = imHistShape((lr),(lt)); % POSSIBLE BUG: consider switching arguments
-        new=(new*(mx1-mn1)/255)+mn1;
-        Lr{i}=new;
+        Lr{i} = imHistShape((lr),(lt)); % POSSIBLE BUG: consider switching arguments
    end
    
     newtexture = adjustRange(collapseLapPyr(Lr));
-   newtexture = imhistmatch(newtexture,texture);
-    if(show)
+   newtexture = imHistShape(newtexture,texture);
+   if(show)
         showImage(newtexture);
         disp('press space to continue iterating');
         pause;
