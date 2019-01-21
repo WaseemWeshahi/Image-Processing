@@ -37,14 +37,13 @@ Lr = laplacPyr(newtexture,numLevels); %Laplacian for randomized texture
 for j=1:numRepeats
     % Histogram shaping each level of Laplacian Pyramid from random image to texture image
     % and saving it back in Lr
-%     Lr = laplacPyr(newtexture,numLevels); 
    for i = 1:numLevels
-        [lr,~,~]=adjustRange(Lr{i},0);
-        [lt,~,~]=adjustRange(Lt{i},0);
+        lr=adjustRange(Lr{i});
+        lt=adjustRange(Lt{i});
         Lr{i} = imHistShape((lr),(lt)); % POSSIBLE BUG: consider switching arguments
    end
    
-    newtexture = adjustRange(collapseLapPyr(Lr));
+   newtexture = adjustRange(collapseLapPyr(Lr));
    newtexture = imHistShape(newtexture,texture);
    if(show)
         showImage(newtexture);
