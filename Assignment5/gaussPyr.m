@@ -6,6 +6,7 @@ function    G = gaussPyr(img,levels)
 % METHOD:   Starts with img and creates level after level.
 %
 % Written By:
+%
 % Waseem Weshahi & Bayan Farhan
 
     G = cell(1,levels);

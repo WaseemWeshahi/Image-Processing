@@ -24,12 +24,12 @@ if nargin<4
     show=false;
 end
 
-newtexture = rand(size(texture))*255;
-newtexture = adjustRange(newtexture,0);
-newtexture = imhistmatch(newtexture/255,texture/255,256)*255; 
+newtexture = floor(rand(size(texture))*255);
+% newtexture = adjustRange(newtexture,0);
+newtexture = imHistShape(newtexture,texture); 
 
 Lt = laplacPyr(texture,numLevels);    %Laplacian of input texture
-%Lr = laplacPyr(newtexture,numLevels); %Laplacian for randomized texture
+Lr = laplacPyr(newtexture,numLevels); %Laplacian for randomized texture
 
 
 % applying the Heeger and Bergen method "numRepeats" times
@@ -37,25 +37,22 @@ Lt = laplacPyr(texture,numLevels);    %Laplacian of input texture
 for j=1:numRepeats
     % Histogram shaping each level of Laplacian Pyramid from random image to texture image
     % and saving it back in Lr
-    Lr = laplacPyr(newtexture,numLevels);
-   
-      
+%     Lr = laplacPyr(newtexture,numLevels); 
    for i = 1:numLevels
-       [lr,mx1,mn1]=adjustRange(Lr{i},0);
-       [lt,~,~]=adjustRange(Lt{i},0);
-        new = imhistmatch((lr)/255,(lt)/255,256)*255; % POSSIBLE BUG: consider switching arguments
+        [lr,mx1,mn1]=adjustRange(Lr{i},0);
+        [lt,~,~]=adjustRange(Lt{i},0);
+        new = imHistShape((lr),(lt)); % POSSIBLE BUG: consider switching arguments
         new=(new*(mx1-mn1)/255)+mn1;
         Lr{i}=new;
    end
    
-    newtexture = (collapseLapPyr(Lr));
-%     newtexture = adjustRange(newtexture,0);
-    newtexture = imhistmatch(newtexture/255,texture/255)*255;
+    newtexture = adjustRange(collapseLapPyr(Lr));
+   newtexture = imhistmatch(newtexture,texture);
     if(show)
-        toshow = adjustRange(newtexture,0);
-        showImage(toshow);
+        showImage(newtexture);
         disp('press space to continue iterating');
         pause;
     end
+    Lr = laplacPyr(newtexture,numLevels);
 end
 end

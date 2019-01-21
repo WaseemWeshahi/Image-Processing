@@ -4,19 +4,26 @@ function [nim,maxi,mini] = adjustRange(im,percent)
 if nargin<2
    percent = 0.0; 
 end
-[m,n] = size(im);
-nelements = round(percent*m*n);
-[~, maxind] = maxk(im(:),nelements); %getting the highest and lowest "percent"
-[~, minind] = mink(im(:), nelements);
-im = round(im);
+% [m,n] = size(im);
+% nelements = round(percent*m*n);
+% [~, maxind] = maxk(im(:),nelements); %getting the highest and lowest "percent"
+% [~, minind] = mink(im(:), nelements);
+% im = round(im);
 nim = im;
-im([maxind;minind])=[];
-maxi=max(im,[],'all');
+% im([maxind;minind])=[];
 mini=min(im,[],'all');
-nim = (nim-min(im,[],'all'))*255/(max(im,[],'all')-min(im,[],'all'));
-nim(maxind)=255;
-nim(minind)=0;
-nim = round(nim);
-
+maxi=max(nim,[],'all');
+nim = (nim-mini)*255/(maxi-mini);
+%%%%%%%%%%%%%
+% mini=min(im,[],'all');
+% 
+% nim = (nim-mini);
+% maxi=max(nim,[],'all');
+% 
+% nim=nim*255/(maxi);
+%%%%%%%%%%%%%
+% nim(maxind)=255;
+% nim(minind)=0;
+nim = floor(nim);
 
 end

@@ -8,9 +8,8 @@ function img = collapseLapPyr(L)
 % Waseem Weshahi & Bayan Farhan
 
 levels = length(L);
-prev = L{levels};
-for i=levels-1:-1:1
-    prev = L{i}+upSample(prev);
+for p = levels-1:-1:1
+	L{p} = L{p}+upSample(L{p+1});
 end
-img = prev;
+img = L{1};
 end

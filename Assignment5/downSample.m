@@ -12,12 +12,6 @@ function    DS = downSample(I)
 
 g = [0.05 0.25 0.4 0.25 0.05];
 mask = g'*g;
-
-G = fft2(mask,size(I,1),size(I,2));
-F = fft2(I);
-blurred = F.*G;
-% blurred = conv2(I,mask,'same','cyclic');
-blurred = ifft2(blurred);
-blurred = real(blurred);
-DS = blurred(1:2:end,1:2:end);
+blurred = conv2_cyclic(I,mask);
+DS = blurred(1:2:size(I,1),1:2:size(I,2));
 end

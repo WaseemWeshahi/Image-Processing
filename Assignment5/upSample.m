@@ -13,13 +13,11 @@ newF = fftshift(F);
 % Padding the image with zeros
 [m,n] = size(newF);
 
-bigF = zeros(2 * size(newF));
+bigF = zeros(2 * size(I));
 
-bigF(m/2+1:m+m/2, n/2+1:n+n/2) = newF;
+bigF(m/2+1:m+m/2, n/2+1:n+n/2) = newF*4;
 bigF = fftshift(bigF);
-US = ifft2(bigF);
-US = real(US);
-US=4*US;
+US = ifft2(bigF,'symmetric');
 
 return;
 
